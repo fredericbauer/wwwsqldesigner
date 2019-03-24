@@ -23,6 +23,25 @@ SQL.Designer = function() {
 	if (this.vector) {
 		this.svgNS = "http://www.w3.org/2000/svg";
 		this.dom.svg = document.createElementNS(this.svgNS, "svg");
+		
+		var defs = document.createElementNS(this.svgNS, "defs");
+		var marker = document.createElementNS(this.svgNS, "marker");
+		var marker_path = document.createElementNS(this.svgNS, "path");
+		marker.setAttribute("id", "arrow")
+		marker.setAttribute("markerWidth", "5")
+		marker.setAttribute("markerHeight", "5")
+		marker.setAttribute("refX", "4")
+		marker.setAttribute("refY", "3")
+		marker.setAttribute("orient", "auto")
+		marker.setAttribute("markerUnits", "strokeWidth")
+		marker_path.setAttribute("d", "M0,0 L0,6 L9,3 z")
+		marker_path.setAttribute("fill", "#f00")
+		marker.appendChild(marker_path)
+		defs.appendChild(marker)
+		this.dom.svg.appendChild(defs);
+		
+		// markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth"
+		
 		this.dom.container.appendChild(this.dom.svg);
 	}
 

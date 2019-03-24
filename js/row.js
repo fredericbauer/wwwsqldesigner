@@ -28,11 +28,13 @@ SQL.Row.prototype._build = function() {
 	this.dom.title = OZ.DOM.elm("div", {className:"title"});
 	var td1 = OZ.DOM.elm("td");
 	var td2 = OZ.DOM.elm("td", {className:"typehint"});
+	var td3 = OZ.DOM.elm("td", {className:"deschint"});
 	this.dom.typehint = td2;
+	this.dom.deschint = td3;
 
 	OZ.DOM.append(
 		[this.dom.container, this.dom.content],
-		[this.dom.content, td1, td2],
+		[this.dom.content, td1, td2, td3],
 		[td1, this.dom.selected, this.dom.title]
 	);
 	
@@ -240,7 +242,13 @@ SQL.Row.prototype.redraw = function() {
 	var typehint = [];
 	if (this.owner.owner.getOption("showtype")) {
 		var elm = this.getDataType();
+		console.log(this)
+		console.log(elm)
 		typehint.push(elm.getAttribute("sql"));
+	}
+	let desc = '';
+	if (!this.data.nll) {
+		desc = ' * '
 	}
 	
 	if (this.owner.owner.getOption("showsize") && this.data.size) {
@@ -248,6 +256,7 @@ SQL.Row.prototype.redraw = function() {
 	}
 	
 	this.dom.typehint.innerHTML = typehint.join(" ");
+	this.dom.deschint.innerHTML = desc;
 	this.owner.redraw();
 	this.owner.owner.rowManager.redraw();
 }

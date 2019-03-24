@@ -27,6 +27,7 @@ SQL.Relation = function(owner, row1, row2) {
 		path.setAttribute("stroke", this.color);
 		path.setAttribute("stroke-width", CONFIG.RELATION_THICKNESS);
 		path.setAttribute("fill", "none");
+		path.setAttribute("marker-end", "url(#arrow)");
 		this.owner.dom.svg.appendChild(path);
 		this.dom.push(path);
 	} else {
@@ -125,8 +126,8 @@ SQL.Relation.prototype.redraw = function() { /* draw connector */
 	
 	if (r1 < l2 || r2 < l1) { /* between tables */
 		if (Math.abs(r1 - l2) < Math.abs(r2 - l1)) {
-			p1 = [r1,t1];
-			p2 = [l2,t2];
+			p2 = [r1,t1];
+			p1 = [l2,t2];
 		} else {
 			p1 = [r2,t2];
 			p2 = [l1,t1];
@@ -137,12 +138,12 @@ SQL.Relation.prototype.redraw = function() { /* draw connector */
 		var x = 0;
 		var l = 0;
 		if (Math.abs(l1 - l2) < Math.abs(r1 - r2)) { /* left of tables */
-			p1 = [l1,t1];
-			p2 = [l2,t2];
+			p2 = [l1,t1];
+			p1 = [l2,t2];
 			x = Math.min(l1,l2) - CONFIG.RELATION_SPACING;
 		} else { /* right of tables */
-			p1 = [r1,t1];
-			p2 = [r2,t2];
+			p2 = [r1,t1];
+			p1 = [r2,t2];
 			x = Math.max(r1,r2) + CONFIG.RELATION_SPACING;
 		}
 		this.redrawSide(p1, p2, x);
